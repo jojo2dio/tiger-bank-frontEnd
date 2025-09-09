@@ -87,5 +87,13 @@ export default {
       url: `/customer/${id}`,
       method: 'delete'
     })
+  },
+
+  queryCustomers(params) {
+    return request({
+      url: '/customer/queryParams',
+      method: 'get',
+      params
+    })
   }
 }

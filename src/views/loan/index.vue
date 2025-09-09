@@ -757,7 +757,7 @@ export default {
 .page-header {
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid #1d1414;
 }
 
 .search-form {

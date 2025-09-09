@@ -347,8 +347,14 @@ export default {
      * 搜索处理
      */
     handleSearch() {
-      this.pageInfo.pageNum = 1
-      this.fetchData()
+      this.loading = true
+      customerApi.queryCustomers(this.searchForm).then(response => {
+        this.tableData = response.data
+        this.loading = false
+      }).catch(error => {
+        this.loading = false
+        this.$message.error('查询失败：' + (error.message || '网络错误'))
+      })
     },
 
     /**

@@ -402,7 +402,7 @@ export default {
      */
     handleView(row) {
       this.loading = true
-      userApi.getUserById(row.id)
+      userApi.getById(row.id)
         .then(response => {
           if (response.success) {
             this.detailForm = response.data || {}
@@ -424,7 +424,7 @@ export default {
      */
     handleEdit(row) {
       this.loading = true
-      userApi.getUserById(row.id)
+      userApi.getById(row.id)
         .then(response => {
           if (response.success) {
             const user = response.data || {}
@@ -489,7 +489,7 @@ export default {
             delete formData.password
           }
 
-          const apiMethod = formData.id ? userApi.updateUser : userApi.addUser
+          const apiMethod = formData.id ? userApi.update : userApi.add
 
           apiMethod(formData)
             .then(response => {

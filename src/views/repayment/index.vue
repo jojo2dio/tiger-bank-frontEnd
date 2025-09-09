@@ -111,9 +111,9 @@
       >
         <template slot-scope="scope">
           <el-tag
-            :type="getTypeTagType(scope.row.remark)"
+            :type="getTypeTagType(scope.row.repaymentType)"
           >
-            {{ scope.row.remark }}
+            {{ getRepaymentTypeName(scope.row.repaymentType) }}
           </el-tag>
         </template>
       </el-table-column>
@@ -190,21 +190,21 @@
 
         <el-form-item label="贷款总还款金额(元)">
           <el-input
-            v-model="loanTotalAmount"
+            v-model.number="loanTotalAmount"
             disabled
           />
         </el-form-item>
 
         <el-form-item label="贷款总还本金(元)">
           <el-input
-            v-model="loanTotalPrincipal"
+            v-model.number="loanTotalPrincipal"
             disabled
           />
         </el-form-item>
 
         <el-form-item label="本次还款总金额(元)" prop="repaymentAmount">
           <el-input
-            v-model="form.repaymentAmount"
+            v-model.number="form.repaymentAmount"
             placeholder="请输入还款总金额"
             type="number"
             step="0.01"
@@ -214,7 +214,7 @@
 
         <el-form-item label="本次还本金(元)" prop="principal">
           <el-input
-            v-model="form.principal"
+            v-model.number="form.principal"
             placeholder="请输入还本金"
             type="number"
             step="0.01"
@@ -224,7 +224,7 @@
 
         <el-form-item label="本次还利息(元)" prop="interest">
           <el-input
-            v-model="form.interest"
+            v-model.number="form.interest"
             placeholder="请输入还利息"
             type="number"
             step="0.01"
@@ -319,6 +319,11 @@ export default {
   name: 'RepaymentList',
   data() {
     return {
+      repaymentTypeMap: [
+        { value: 1, label: '正常还款', tagType: 'success' },
+        { value: 2, label: '提前还款', tagType: 'primary' },
+        { value: 3, label: '逾期还款', tagType: 'warning' }
+      ],
       // 表格数据
       tableData: [],
       loading: false,
@@ -394,6 +399,17 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 新增：将数字转换为对应文字
+    getRepaymentTypeName(type) {
+      const item = this.repaymentTypeMap.find(item => item.value === type)
+      return item ? item.label : '未知类型'
+    },
+
+    // 优化：使用统一映射获取标签类型
+    getTypeTagType(type) {
+      const item = this.repaymentTypeMap.find(item => item.value === type)
+      return item ? item.tagType : ''
+    },
     /**
      * 获取还款记录列表数据（使用分页查询）
      */
