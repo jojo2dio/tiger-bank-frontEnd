@@ -58,13 +58,19 @@ export const constantRoutes = [
   {
     path: '/customer',
     component: Layout,
-    meta: { title: '客户管理', icon: 'user' },
+    name: 'BeforeLoanManagement',
+    redirect: 'index',
+    meta: { title: '贷前管理', icon: 'user' },
     children: [
+      {
+        path: '', // 空路径表示这是主tab的默认子路由
+        redirect: 'customer' // 默认显示客户管理页面
+      },
       {
         path: 'index',
         name: 'CustomerList',
         component: () => import('@/views/customer/index'),
-        meta: { title: '客户列表', icon: 'el-icon-s-custom' }
+        meta: { title: '客户管理', icon: 'el-icon-s-custom' }
       }
     ]
   },
@@ -75,7 +81,7 @@ export const constantRoutes = [
     redirect: '/loan/list',
     name: 'LoanManagement',
     meta: {
-      title: '贷款管理',
+      title: '贷中管理',
       icon: 'el-icon-money'
     },
     children: [
@@ -83,7 +89,14 @@ export const constantRoutes = [
         path: 'list',
         name: 'LoanList',
         component: () => import('@/views/loan/index'),
-        meta: { title: '贷款项目列表' }
+        meta: { title: '合作项目管理' }
+      },
+      // 新增：放款记录管理（路径匹配views/loanGrant/index.vue）
+      {
+        path: 'grant',
+        name: 'LoanGrant',
+        component: () => import('@/views/loanGrant/index'),
+        meta: { title: '放款记录管理' }
       }
     ]
   },
@@ -92,16 +105,20 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/repayment/index',
     meta: {
-      title: '还款管理',
+      title: '贷后管理',
       icon: 'el-icon-s-finance'
     },
     children: [
+      {
+        path: '', // 空路径表示这是主tab的默认子路由
+        redirect: 'repayment' // 默认显示客户管理页面
+      },
       {
         path: 'index',
         name: 'Repayment',
         component: () => import('@/views/repayment/index'),
         meta: {
-          title: '还款记录',
+          title: '还款管理',
           icon: 'el-icon-s-finance'
         }
       }
@@ -119,7 +136,7 @@ export const constantRoutes = [
         path: 'user',
         name: 'User',
         component: () => import('@/views/user/index'),
-        meta: { title: '用户管理', icon: 'el-icon-user' }
+        meta: { title: '系统用户管理', icon: 'el-icon-user' }
       }
     ]
   },

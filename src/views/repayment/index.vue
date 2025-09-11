@@ -630,19 +630,19 @@ export default {
     formatCurrency(value) {
       if (!value) return '0.00'
       return parseFloat(value).toFixed(2)
-    },
+    }
 
     /**
      * 根据还款类型获取标签类型
      */
-    getTypeTagType(type) {
-      switch (type) {
-        case 1: return 'success' // 正常还款
-        case 2: return 'primary' // 提前还款
-        case 3: return 'warning' // 逾期还款
-        default: return ''
-      }
-    }
+    // getTypeTagType(type) {
+    //   switch (type) {
+    //     case 1: return 'success' // 正常还款
+    //     case 2: return 'primary' // 提前还款
+    //     case 3: return 'warning' // 逾期还款
+    //     default: return ''
+    //   }
+    // }
   }
 }
 </script>

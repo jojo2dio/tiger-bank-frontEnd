@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <!-- 页面标题和欢迎信息 -->
     <div class="page-header">
-      <h2>控制台</h2>
+      <h2>Tiger Bank Managment System总览</h2>
       <p class="welcome-text">欢迎回来，{{ name }}！今天是 {{ today }}</p>
     </div>
 
@@ -142,8 +142,8 @@ export default {
       recentCustomers: [
         {
           enterpriseName: '111',
-          creditCode: '91310000MA1FL72A0J',
-          createTime: '2023-10-15 09:23:45',
+          creditCode: '91310101MA002B2C3A',
+          createTime: '2025-09-08 11:22:38',
           statusName: '正常'
         }
       ],

@@ -48,6 +48,7 @@
           <el-option label="已结清" value="2" />
           <el-option label="已逾期" value="3" />
           <el-option label="审批拒绝" value="4" />
+          <el-option label="待放款" value="5" />
         </el-select>
       </el-form-item>
 
@@ -91,7 +92,7 @@
           <el-tag
             :type="getStatusType(scope.row.status)"
           >
-            {{ scope.row.statusName }}
+            {{ getStatusName(scope.row.status) }}
           </el-tag>
         </template>
       </el-table-column>
@@ -232,6 +233,7 @@
             <el-option label="已结清" value="2" />
             <el-option label="已逾期" value="3" />
             <el-option label="审批拒绝" value="4" />
+            <el-option label="待放款" value="5" />
           </el-select>
         </el-form-item>
       </el-form>
@@ -265,7 +267,7 @@
             v-if="detailData.status !== undefined"
             :type="getStatusType(detailData.status)"
           >
-            {{ detailData.statusName || '-' }}
+            {{ detailData.statusName || getStatusName(detailData.status) }}
           </el-tag>
           <span v-else>-</span>
         </el-descriptions-item>
@@ -458,6 +460,17 @@ export default {
           this.loading = false
         })
     },
+    getStatusName(status) {
+      const statusMap = {
+        0: '待审批',
+        1: '已放款',
+        2: '已结清',
+        3: '已逾期',
+        4: '审批拒绝',
+        5: '待放款' // 新增待放款
+      }
+      return statusMap[status] || '未知状态'
+    },
 
     /**
      * 搜索处理
@@ -621,7 +634,7 @@ export default {
           const approvalDTO = {
             loanId: this.approvalForm.loanId,
             // 转换审批结果为状态值：1-通过→1(已放款)，0-拒绝→4(审批拒绝)
-            status: this.approvalForm.approvalResult === 1 ? 1 : 4,
+            status: this.approvalForm.approvalResult === 1 ? 5 : 4,
             remark: this.approvalForm.remark
           }
 
@@ -722,6 +735,7 @@ export default {
         case 2: return 'primary' // 已结清
         case 3: return 'danger' // 已逾期
         case 4: return 'info' // 审批拒绝
+        case 5: return 'warning' // 审批拒绝
         default: return ''
       }
     },
